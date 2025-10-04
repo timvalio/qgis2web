@@ -1,11 +1,11 @@
-name: Publish newest qgis2web export to live
+name: Publish newest qgis2web export to docs
 
 on:
   push:
     branches: [ main ]
     paths:
       - 'qgis2web_*/*'
-      - '!live/**'
+      - '!docs/**'
 
 jobs:
   publish:
@@ -15,21 +15,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Copy newest export to live/
+      - name: Copy newest export to docs/
         run: |
           latest=$(ls -td qgis2web_* 2>/dev/null | head -n1)
           if [ -z "$latest" ]; then echo "No qgis2web_* folder found"; exit 0; fi
-          rm -rf live
-          mkdir -p live
-          cp -R "$latest"/. live/
+          rm -rf docs
+          mkdir -p docs
+          cp -R "$latest"/. docs/
+          touch docs/.nojekyll
 
-      - name: Commit and push live/
+      - name: Commit and push docs/
         run: |
-          if [ -n "$(git status --porcelain live)" ]; then
+          if [ -n "$(git status --porcelain docs)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add live
-            git commit -m "Auto-publish $latest → live/"
+            git add docs
+            git commit -m "Auto-publish $latest → docs/"
             git push
           else
             echo "No changes to commit."
