@@ -36,10 +36,11 @@
         <script src="js/labels.js"></script>
         <script src="js/leaflet.photon.js"></script>
         <script src="data/0000_25833_reindriftreinbeitedistrikt_shp_1.js"></script>
+        <script src="data/0000_25833_reindriftsiidaomrade_shp_2.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[68.13361500317805,18.53755242524395],[72.37810968257283,34.23365469739601]]);
+        }).fitBounds([[69.66027705153417,19.630750491708614],[71.7424014111451,30.075422809971062]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -169,6 +170,91 @@
         });
         bounds_group.addLayer(layer_0000_25833_reindriftreinbeitedistrikt_shp_1);
         map.addLayer(layer_0000_25833_reindriftreinbeitedistrikt_shp_1);
+        function pop_0000_25833_reindriftsiidaomrade_shp_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['objectid'] !== null ? autolinker.link(String(feature.properties['objectid']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['objtype'] !== null ? autolinker.link(String(feature.properties['objtype']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['navn'] !== null ? autolinker.link(String(feature.properties['navn']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['eier'] !== null ? autolinker.link(String(feature.properties['eier']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['produsent'] !== null ? autolinker.link(String(feature.properties['produsent']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['kvalitet'] !== null ? autolinker.link(String(feature.properties['kvalitet']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['forstedata'] !== null ? autolinker.link(String(feature.properties['forstedata']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['oppdaterin'] !== null ? autolinker.link(String(feature.properties['oppdaterin']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['areal'] !== null ? autolinker.link(String(feature.properties['areal']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['areal_daa'] !== null ? autolinker.link(String(feature.properties['areal_daa']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['malemetode'] !== null ? autolinker.link(String(feature.properties['malemetode']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['noyaktighe'] !== null ? autolinker.link(String(feature.properties['noyaktighe']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['synbarhet'] !== null ? autolinker.link(String(feature.properties['synbarhet']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['verifiseri'] !== null ? autolinker.link(String(feature.properties['verifiseri']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['siidatyper'] !== null ? autolinker.link(String(feature.properties['siidatyper']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['status'] !== null ? autolinker.link(String(feature.properties['status']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_0000_25833_reindriftsiidaomrade_shp_2_0() {
+            return {
+                pane: 'pane_0000_25833_reindriftsiidaomrade_shp_2',
+                opacity: 1,
+                color: 'rgba(53,121,177,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_0000_25833_reindriftsiidaomrade_shp_2');
+        map.getPane('pane_0000_25833_reindriftsiidaomrade_shp_2').style.zIndex = 402;
+        map.getPane('pane_0000_25833_reindriftsiidaomrade_shp_2').style['mix-blend-mode'] = 'normal';
+        var layer_0000_25833_reindriftsiidaomrade_shp_2 = new L.geoJson(json_0000_25833_reindriftsiidaomrade_shp_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_0000_25833_reindriftsiidaomrade_shp_2',
+            layerName: 'layer_0000_25833_reindriftsiidaomrade_shp_2',
+            pane: 'pane_0000_25833_reindriftsiidaomrade_shp_2',
+            onEachFeature: pop_0000_25833_reindriftsiidaomrade_shp_2,
+            style: style_0000_25833_reindriftsiidaomrade_shp_2_0,
+        });
+        bounds_group.addLayer(layer_0000_25833_reindriftsiidaomrade_shp_2);
+        map.addLayer(layer_0000_25833_reindriftsiidaomrade_shp_2);
         setBounds();
         resetLabels([layer_0000_25833_reindriftreinbeitedistrikt_shp_1]);
         map.on("zoomend", function(){
