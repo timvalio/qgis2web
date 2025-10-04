@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet.photon.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/L.Control.Layers.Tree.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet.photon.js"></script>
+        <script src="data/0000_25833_reindriftreinbeitedistrikt_shp_0.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:false, maxZoom:28, minZoom:1
+        }).fitBounds([[68.13361500317805,18.53755242524395],[72.37810968257283,34.23365469739601]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        // remove popup's row if "visible-with-data"
+        function removeEmptyRowsFromPopupContent(content, feature) {
+         var tempDiv = document.createElement('div');
+         tempDiv.innerHTML = content;
+         var rows = tempDiv.querySelectorAll('tr');
+         for (var i = 0; i < rows.length; i++) {
+             var td = rows[i].querySelector('td.visible-with-data');
+             var key = td ? td.id : '';
+             if (td && td.classList.contains('visible-with-data') && feature.properties[key] == null) {
+                 rows[i].parentNode.removeChild(rows[i]);
+             }
+         }
+         return tempDiv.innerHTML;
+        }
+        // add class to format popup if it contains media
+		function addClassToPopupIfMedia(content, popup) {
+			var tempDiv = document.createElement('div');
+			tempDiv.innerHTML = content;
+			if (tempDiv.querySelector('td img')) {
+				popup._contentNode.classList.add('media');
+					// Delay to force the redraw
+					setTimeout(function() {
+						popup.update();
+					}, 10);
+			} else {
+				popup._contentNode.classList.remove('media');
+			}
+		}
+        var zoomControl = L.control.zoom({
+            position: 'topleft'
+        }).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        function pop_0000_25833_reindriftreinbeitedistrikt_shp_0(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['objectid'] !== null ? autolinker.link(String(feature.properties['objectid']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['objtype'] !== null ? autolinker.link(String(feature.properties['objtype']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['distkode'] !== null ? autolinker.link(String(feature.properties['distkode']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['eier'] !== null ? autolinker.link(String(feature.properties['eier']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['produsent'] !== null ? autolinker.link(String(feature.properties['produsent']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['kvalitet'] !== null ? autolinker.link(String(feature.properties['kvalitet']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['forstedata'] !== null ? autolinker.link(String(feature.properties['forstedata']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['oppdaterin'] !== null ? autolinker.link(String(feature.properties['oppdaterin']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['areal'] !== null ? autolinker.link(String(feature.properties['areal']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['malemetode'] !== null ? autolinker.link(String(feature.properties['malemetode']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['noyaktighe'] !== null ? autolinker.link(String(feature.properties['noyaktighe']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['synbarhet'] !== null ? autolinker.link(String(feature.properties['synbarhet']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['verifiseri'] !== null ? autolinker.link(String(feature.properties['verifiseri']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['status'] !== null ? autolinker.link(String(feature.properties['status']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_0000_25833_reindriftreinbeitedistrikt_shp_0_0() {
+            return {
+                pane: 'pane_0000_25833_reindriftreinbeitedistrikt_shp_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_0000_25833_reindriftreinbeitedistrikt_shp_0');
+        map.getPane('pane_0000_25833_reindriftreinbeitedistrikt_shp_0').style.zIndex = 400;
+        map.getPane('pane_0000_25833_reindriftreinbeitedistrikt_shp_0').style['mix-blend-mode'] = 'normal';
+        var layer_0000_25833_reindriftreinbeitedistrikt_shp_0 = new L.geoJson(json_0000_25833_reindriftreinbeitedistrikt_shp_0, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_0000_25833_reindriftreinbeitedistrikt_shp_0',
+            layerName: 'layer_0000_25833_reindriftreinbeitedistrikt_shp_0',
+            pane: 'pane_0000_25833_reindriftreinbeitedistrikt_shp_0',
+            onEachFeature: pop_0000_25833_reindriftreinbeitedistrikt_shp_0,
+            style: style_0000_25833_reindriftreinbeitedistrikt_shp_0_0,
+        });
+        bounds_group.addLayer(layer_0000_25833_reindriftreinbeitedistrikt_shp_0);
+        map.addLayer(layer_0000_25833_reindriftreinbeitedistrikt_shp_0);
+        map.createPane('pane_MapzenGlobalTerrain_1');
+        map.getPane('pane_MapzenGlobalTerrain_1').style.zIndex = 401;
+        var layer_MapzenGlobalTerrain_1 = L.tileLayer('https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png', {
+            pane: 'pane_MapzenGlobalTerrain_1',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 15
+        });
+        layer_MapzenGlobalTerrain_1;
+        map.addLayer(layer_MapzenGlobalTerrain_1);
+        setBounds();
+        resetLabels([layer_0000_25833_reindriftreinbeitedistrikt_shp_0]);
+        map.on("zoomend", function(){
+            resetLabels([layer_0000_25833_reindriftreinbeitedistrikt_shp_0]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_0000_25833_reindriftreinbeitedistrikt_shp_0]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_0000_25833_reindriftreinbeitedistrikt_shp_0]);
+        });
+        </script>
+    </body>
+</html>
