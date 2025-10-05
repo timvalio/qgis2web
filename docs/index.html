@@ -37,10 +37,17 @@
         <script src="js/leaflet.photon.js"></script>
         <script src="data/0000_25833_reindriftreinbeitedistrikt_shp_1.js"></script>
         <script src="data/0000_25833_reindriftsiidaomrade_shp_2.js"></script>
+        <script src="data/Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_Samferdsel_senterlinje_3.js"></script>
+        <script src="data/Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_BygningerOgAnlegg_posisjon_4.js"></script>
         <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+            highlightLayer.openPopup();
+        }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[69.66027705153417,19.630750491708614],[71.7424014111451,30.075422809971062]]);
+        }).fitBounds([[70.50743408657759,24.744439511038998],[70.76876506456755,25.722718359789898]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -92,6 +99,18 @@
         layer_OpenStreetMap_0;
         map.addLayer(layer_OpenStreetMap_0);
         function pop_0000_25833_reindriftreinbeitedistrikt_shp_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['objectid'] !== null ? autolinker.link(String(feature.properties['objectid']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
@@ -115,25 +134,25 @@
                         <td colspan="2">' + (feature.properties['forstedata'] !== null ? autolinker.link(String(feature.properties['forstedata']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['oppdaterin'] !== null ? autolinker.link(String(feature.properties['oppdaterin']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>oppdaterin</strong><br />' + (feature.properties['oppdaterin'] !== null ? autolinker.link(String(feature.properties['oppdaterin']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['areal'] !== null ? autolinker.link(String(feature.properties['areal']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>areal</strong><br />' + (feature.properties['areal'] !== null ? autolinker.link(String(feature.properties['areal']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['malemetode'] !== null ? autolinker.link(String(feature.properties['malemetode']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>malemetode</strong><br />' + (feature.properties['malemetode'] !== null ? autolinker.link(String(feature.properties['malemetode']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['noyaktighe'] !== null ? autolinker.link(String(feature.properties['noyaktighe']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>noyaktighe</strong><br />' + (feature.properties['noyaktighe'] !== null ? autolinker.link(String(feature.properties['noyaktighe']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['synbarhet'] !== null ? autolinker.link(String(feature.properties['synbarhet']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>synbarhet</strong><br />' + (feature.properties['synbarhet'] !== null ? autolinker.link(String(feature.properties['synbarhet']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['verifiseri'] !== null ? autolinker.link(String(feature.properties['verifiseri']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>verifiseri</strong><br />' + (feature.properties['verifiseri'] !== null ? autolinker.link(String(feature.properties['verifiseri']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['status'] !== null ? autolinker.link(String(feature.properties['status']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>status</strong><br />' + (feature.properties['status'] !== null ? autolinker.link(String(feature.properties['status']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -171,6 +190,18 @@
         bounds_group.addLayer(layer_0000_25833_reindriftreinbeitedistrikt_shp_1);
         map.addLayer(layer_0000_25833_reindriftreinbeitedistrikt_shp_1);
         function pop_0000_25833_reindriftsiidaomrade_shp_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['objectid'] !== null ? autolinker.link(String(feature.properties['objectid']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
@@ -194,31 +225,31 @@
                         <td colspan="2">' + (feature.properties['forstedata'] !== null ? autolinker.link(String(feature.properties['forstedata']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['oppdaterin'] !== null ? autolinker.link(String(feature.properties['oppdaterin']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>oppdaterin</strong><br />' + (feature.properties['oppdaterin'] !== null ? autolinker.link(String(feature.properties['oppdaterin']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['areal'] !== null ? autolinker.link(String(feature.properties['areal']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>areal</strong><br />' + (feature.properties['areal'] !== null ? autolinker.link(String(feature.properties['areal']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['areal_daa'] !== null ? autolinker.link(String(feature.properties['areal_daa']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>areal_daa</strong><br />' + (feature.properties['areal_daa'] !== null ? autolinker.link(String(feature.properties['areal_daa']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['malemetode'] !== null ? autolinker.link(String(feature.properties['malemetode']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>malemetode</strong><br />' + (feature.properties['malemetode'] !== null ? autolinker.link(String(feature.properties['malemetode']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['noyaktighe'] !== null ? autolinker.link(String(feature.properties['noyaktighe']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>noyaktighe</strong><br />' + (feature.properties['noyaktighe'] !== null ? autolinker.link(String(feature.properties['noyaktighe']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['synbarhet'] !== null ? autolinker.link(String(feature.properties['synbarhet']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>synbarhet</strong><br />' + (feature.properties['synbarhet'] !== null ? autolinker.link(String(feature.properties['synbarhet']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['verifiseri'] !== null ? autolinker.link(String(feature.properties['verifiseri']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>verifiseri</strong><br />' + (feature.properties['verifiseri'] !== null ? autolinker.link(String(feature.properties['verifiseri']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['siidatyper'] !== null ? autolinker.link(String(feature.properties['siidatyper']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>siidatyper</strong><br />' + (feature.properties['siidatyper'] !== null ? autolinker.link(String(feature.properties['siidatyper']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['status'] !== null ? autolinker.link(String(feature.properties['status']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>status</strong><br />' + (feature.properties['status'] !== null ? autolinker.link(String(feature.properties['status']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -257,6 +288,278 @@
         });
         bounds_group.addLayer(layer_0000_25833_reindriftsiidaomrade_shp_2);
         map.addLayer(layer_0000_25833_reindriftsiidaomrade_shp_2);
+        function pop_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_Samferdsel_senterlinje_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? autolinker.link(String(feature.properties['OBJECTID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['objtype'] !== null ? autolinker.link(String(feature.properties['objtype']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['datafangstdato'] !== null ? autolinker.link(String(feature.properties['datafangstdato']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['oppdateringsdato'] !== null ? autolinker.link(String(feature.properties['oppdateringsdato']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['sporantall'] !== null ? autolinker.link(String(feature.properties['sporantall']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['anleggstype'] !== null ? autolinker.link(String(feature.properties['anleggstype']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['medium'] !== null ? autolinker.link(String(feature.properties['medium']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['malemetode'] !== null ? autolinker.link(String(feature.properties['malemetode']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['noyaktighet'] !== null ? autolinker.link(String(feature.properties['noyaktighet']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['rutemerking'] !== null ? autolinker.link(String(feature.properties['rutemerking']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['vedlikeholdsansvarlig'] !== null ? autolinker.link(String(feature.properties['vedlikeholdsansvarlig']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['vegnummer'] !== null ? autolinker.link(String(feature.properties['vegnummer']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['motorvegtype'] !== null ? autolinker.link(String(feature.properties['motorvegtype']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['typeveg'] !== null ? autolinker.link(String(feature.properties['typeveg']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['vegkategori'] !== null ? autolinker.link(String(feature.properties['vegkategori']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['vegfase'] !== null ? autolinker.link(String(feature.properties['vegfase']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['banestatus'] !== null ? autolinker.link(String(feature.properties['banestatus']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SHAPE_Length'] !== null ? autolinker.link(String(feature.properties['SHAPE_Length']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_Samferdsel_senterlinje_3_0() {
+            return {
+                pane: 'pane_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_Samferdsel_senterlinje_3',
+                opacity: 1,
+                color: 'rgba(229,182,54,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_Samferdsel_senterlinje_3');
+        map.getPane('pane_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_Samferdsel_senterlinje_3').style.zIndex = 403;
+        map.getPane('pane_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_Samferdsel_senterlinje_3').style['mix-blend-mode'] = 'normal';
+        var layer_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_Samferdsel_senterlinje_3 = new L.geoJson(json_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_Samferdsel_senterlinje_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_Samferdsel_senterlinje_3',
+            layerName: 'layer_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_Samferdsel_senterlinje_3',
+            pane: 'pane_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_Samferdsel_senterlinje_3',
+            onEachFeature: pop_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_Samferdsel_senterlinje_3,
+            style: style_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_Samferdsel_senterlinje_3_0,
+        });
+        bounds_group.addLayer(layer_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_Samferdsel_senterlinje_3);
+        map.addLayer(layer_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_Samferdsel_senterlinje_3);
+        function pop_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_BygningerOgAnlegg_posisjon_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? autolinker.link(String(feature.properties['OBJECTID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['objtype'] !== null ? autolinker.link(String(feature.properties['objtype']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['datafangstdato'] !== null ? autolinker.link(String(feature.properties['datafangstdato']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['oppdateringsdato'] !== null ? autolinker.link(String(feature.properties['oppdateringsdato']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['malemetode'] !== null ? autolinker.link(String(feature.properties['malemetode']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['noyaktighet'] !== null ? autolinker.link(String(feature.properties['noyaktighet']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['navn'] !== null ? autolinker.link(String(feature.properties['navn']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['retningsverdi'] !== null ? autolinker.link(String(feature.properties['retningsverdi']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['retningsenhet'] !== null ? autolinker.link(String(feature.properties['retningsenhet']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['retningsreferanse'] !== null ? autolinker.link(String(feature.properties['retningsreferanse']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lengde'] !== null ? autolinker.link(String(feature.properties['lengde']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bygningstype'] !== null ? autolinker.link(String(feature.properties['bygningstype']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['betjeningsgrad'] !== null ? autolinker.link(String(feature.properties['betjeningsgrad']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['hytteeier'] !== null ? autolinker.link(String(feature.properties['hytteeier']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tilgjengelighet'] !== null ? autolinker.link(String(feature.properties['tilgjengelighet']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_BygningerOgAnlegg_posisjon_4_0() {
+            return {
+                pane: 'pane_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_BygningerOgAnlegg_posisjon_4',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(152,125,183,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_BygningerOgAnlegg_posisjon_4');
+        map.getPane('pane_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_BygningerOgAnlegg_posisjon_4').style.zIndex = 404;
+        map.getPane('pane_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_BygningerOgAnlegg_posisjon_4').style['mix-blend-mode'] = 'normal';
+        var layer_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_BygningerOgAnlegg_posisjon_4 = new L.geoJson(json_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_BygningerOgAnlegg_posisjon_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_BygningerOgAnlegg_posisjon_4',
+            layerName: 'layer_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_BygningerOgAnlegg_posisjon_4',
+            pane: 'pane_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_BygningerOgAnlegg_posisjon_4',
+            onEachFeature: pop_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_BygningerOgAnlegg_posisjon_4,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_BygningerOgAnlegg_posisjon_4_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_BygningerOgAnlegg_posisjon_4);
+        map.addLayer(layer_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_BygningerOgAnlegg_posisjon_4);
+        var overlaysTree = [
+            {label: '<img src="legend/Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_BygningerOgAnlegg_posisjon_4.png" /> Basisdata_56_Finnmark_25833_N50Kartdata_FGDB — N50_BygningerOgAnlegg_posisjon', layer: layer_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_BygningerOgAnlegg_posisjon_4},
+            {label: '<img src="legend/Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_Samferdsel_senterlinje_3.png" /> Basisdata_56_Finnmark_25833_N50Kartdata_FGDB — N50_Samferdsel_senterlinje', layer: layer_Basisdata_56_Finnmark_25833_N50Kartdata_FGDBN50_Samferdsel_senterlinje_3},
+            {label: '<img src="legend/0000_25833_reindriftsiidaomrade_shp_2.png" /> 0000_25833_reindrift-siidaomrade_shp', layer: layer_0000_25833_reindriftsiidaomrade_shp_2},
+            {label: '<img src="legend/0000_25833_reindriftreinbeitedistrikt_shp_1.png" /> 0000_25833_reindrift-reinbeitedistrikt_shp', layer: layer_0000_25833_reindriftreinbeitedistrikt_shp_1},
+            {label: "OpenStreetMap", layer: layer_OpenStreetMap_0},]
+        var lay = L.control.layers.tree(null, overlaysTree,{
+            //namedToggle: true,
+            //selectorBack: false,
+            //closedSymbol: '&#8862; &#x1f5c0;',
+            //openedSymbol: '&#8863; &#x1f5c1;',
+            //collapseAll: 'Collapse all',
+            //expandAll: 'Expand all',
+            collapsed: false, 
+        });
+        lay.addTo(map);
+		document.addEventListener("DOMContentLoaded", function() {
+            // set new Layers List height which considers toggle icon
+            function newLayersListHeight() {
+                var layerScrollbarElement = document.querySelector('.leaflet-control-layers-scrollbar');
+                if (layerScrollbarElement) {
+                    var layersListElement = document.querySelector('.leaflet-control-layers-list');
+                    var originalHeight = layersListElement.style.height 
+                        || window.getComputedStyle(layersListElement).height;
+                    var newHeight = parseFloat(originalHeight) - 50;
+                    layersListElement.style.height = newHeight + 'px';
+                }
+            }
+            var isLayersListExpanded = true;
+            var controlLayersElement = document.querySelector('.leaflet-control-layers');
+            var toggleLayerControl = document.querySelector('.leaflet-control-layers-toggle');
+            // toggle Collapsed/Expanded and apply new Layers List height
+            toggleLayerControl.addEventListener('click', function() {
+                if (isLayersListExpanded) {
+                    controlLayersElement.classList.remove('leaflet-control-layers-expanded');
+                } else {
+                    controlLayersElement.classList.add('leaflet-control-layers-expanded');
+                }
+                isLayersListExpanded = !isLayersListExpanded;
+                newLayersListHeight()
+            });	
+			// apply new Layers List height if toggle layerstree
+			if (controlLayersElement) {
+				controlLayersElement.addEventListener('click', function(event) {
+					var toggleLayerHeaderPointer = event.target.closest('.leaflet-layerstree-header-pointer span');
+					if (toggleLayerHeaderPointer) {
+						newLayersListHeight();
+					}
+				});
+			}
+            // Collapsed/Expanded at Start to apply new height
+            setTimeout(function() {
+                toggleLayerControl.click();
+            }, 10);
+            setTimeout(function() {
+                toggleLayerControl.click();
+            }, 10);
+            // Collapsed touch/small screen
+            var isSmallScreen = window.innerWidth < 650;
+            if (isSmallScreen) {
+                setTimeout(function() {
+                    controlLayersElement.classList.remove('leaflet-control-layers-expanded');
+                    isLayersListExpanded = !isLayersListExpanded;
+                }, 500);
+            }  
+        });       
         setBounds();
         resetLabels([layer_0000_25833_reindriftreinbeitedistrikt_shp_1]);
         map.on("zoomend", function(){
